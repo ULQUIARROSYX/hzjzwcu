@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "koa": "^2.13.4",
+    "koa-body": "^4.2.0",
+    "koa-router": "^10.1.1",
+    "mime": "^3.0.0",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^5.20.0",
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-vue": "^8.7.1",
+    "prettier": "^2.6.2"
+  }
+}
