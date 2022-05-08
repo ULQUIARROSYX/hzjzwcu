@@ -1,7 +1,7 @@
 /*
  * @Author: ULQUIARROSYX
  * @LastEditors: ULQUIARROSYX
- * @LastEditTime: 2022-04-29 01:08:02
+ * @LastEditTime: 2022-05-06 22:18:10
  * @FilePath: \back\router\record.js
  * @Description:首页记录相关的api
  */

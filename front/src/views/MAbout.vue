@@ -33,6 +33,7 @@
                 <m-upload></m-upload>
             </el-form-item>
         </el-form>
+        <m-test></m-test>
     </div>
 </template>
 
@@ -40,6 +41,7 @@
 import { reactive } from 'vue';
 import MTag from '@/components/MTag.vue';
 import MUpload from '@/components/MUpload.vue';
+import MTest from '@/components/MTest.vue';
 
 interface formType {
     title: string,

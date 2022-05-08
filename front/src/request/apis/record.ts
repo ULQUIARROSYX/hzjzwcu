@@ -1,7 +1,7 @@
 /*
  * @Author: ULQUIARROSYX
  * @LastEditors: ULQUIARROSYX
- * @LastEditTime: 2022-04-29 01:12:04
+ * @LastEditTime: 2022-05-06 22:20:02
  * @FilePath: \front\src\request\apis\record.ts
  * @Description:
  */
@@ -25,7 +25,7 @@ export function getRecord(param: infoParam) {
 // 新增一条记录
 export function addRecord() {
     return axios({
-        url: '/addRecord',
+        url: '/record/addRecord',
         method: 'POST',
         data: {
             a: 1,
