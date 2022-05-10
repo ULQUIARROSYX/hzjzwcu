@@ -1,7 +1,7 @@
 /*
  * @Author: ULQUIARROSYX
  * @LastEditors: ULQUIARROSYX
- * @LastEditTime: 2022-05-09 00:05:50
+ * @LastEditTime: 2022-05-10 22:53:57
  * @FilePath: \back\router\common.js
  * @Description:通用功能
  */
@@ -16,13 +16,13 @@ router.post('/upload', async (ctx) => {
     const file = ctx.request.files.file;
     const filePath = file.path;
     const fileName = `${filePath.split('\\').reverse()[0]}.${mime.getExtension(file.type)}`;
-    const tmpPath = path.resolve(__dirname, `../tmpImg/${fileName}`);
+    const tmpPath = path.resolve(`D:/html/tmpImg/${fileName}`);
     fs.copyFileSync(filePath, tmpPath);
     fs.unlinkSync(filePath);
     ctx.body = {
         code: 200,
         data: {
-            tmpPath: `tmpImg/${fileName}`,
+            tmpPath: `/tmpImg/${fileName}`,
         },
     };
 });

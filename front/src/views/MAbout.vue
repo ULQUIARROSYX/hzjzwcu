@@ -1,7 +1,7 @@
 <!--
  * @Author: ULQUIARROSYX
  * @LastEditors: ULQUIARROSYX
- * @LastEditTime: 2022-04-29 01:28:46
+ * @LastEditTime: 2022-05-11 00:30:46
  * @FilePath: \front\src\views\MAbout.vue
  * @Description:表单页面
 -->
@@ -29,8 +29,8 @@
             <el-form-item label="标签">
                 <m-tag v-model="form.tags"></m-tag>
             </el-form-item>
-            <el-form-item label="标签">
-                <m-upload></m-upload>
+            <el-form-item label="图片">
+                <m-upload v-model="form.imgs"></m-upload>
             </el-form-item>
         </el-form>
         <m-test></m-test>
@@ -55,7 +55,7 @@ let form = reactive<formType>({
     title: '',
     tags: ['平权'],
     date: new Date(),
-    imgs: ['img1', 'img2'],
+    imgs: ['http://localhost/tmpImg/upload_f2948fdd609839f97ece40017f6537bc.jpeg', 'http://localhost/tmpImg/upload_f2948fdd609839f97ece40017f6537bc.jpeg'],
     links: ['https://www.baidu.com', 'https://www.baidu.com'],
     marks: 'asdasd',
 

@@ -1,23 +1,22 @@
 <!--
  * @Author: ULQUIARROSYX
  * @LastEditors: ULQUIARROSYX
- * @LastEditTime: 2022-05-08 23:30:25
+ * @LastEditTime: 2022-05-11 00:32:18
  * @FilePath: \front\src\components\MUpload.vue
  * @Description: 上传组件
 -->
 <template>
     <div>
         <!-- 上传组件 -->
-        <el-upload ref="uploadCom" class="uploadComponent" action="" :http-request="onUpload" :on-change="handleChange"
-            :file-list="fileList">
-            <el-button type="primary">Click to upload</el-button>
-            <template #file="{ file }">
+        <el-upload ref="uploadCom" class="uploadComponent" action="" :http-request="onUpload" :file-list="fileList">
+            <el-button type="primary">上传图片</el-button>
+            <template #file="file">
                 <div class="fileListItem" @click="onClickPreviewFile(file)">
                     <div class="fileName">
                         <el-icon>
                             <document />
                         </el-icon>
-                        <span>{{ file.name.slice(0, 15) }}</span>
+                        <pre>{{ file.index }}</pre>
                     </div>
                     <el-icon class="deleteIcon" @click.stop="onClickDelImg(file)">
                         <close />
@@ -34,43 +33,57 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { onMounted, PropType, reactive, ref } from 'vue';
 import { upload } from '@/request/apis/common';
+import { UploadFile, UploadRequestOptions } from 'element-plus';
+interface File extends UploadFile {
+    url: string;
+}
+const emit = defineEmits(['update:modelValue']);
+const props = defineProps({
+    modelValue: { type: Array as PropType<string[]>, default: () => [] },
+});
 
-const uploadCom = ref();
-const preview = reactive({ show: false, url: '' });
+const uploadCom = ref(); // 上传组件实例
+const fileList = ref<File[]>([]); // 文件列表
 
-const fileList = ref([
-    {
-        name: 'food.jpeg',
-        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
-    },
-    {
-        name: 'food2.jpeg',
-        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
-    },
-]);
+onMounted(() => {
+    console.log(props.modelValue[0]);
 
-const handleChange = (uploadFile, uploadFiles) => {
-    console.log(uploadFile, uploadFiles);
+});
+
+/**
+ * @description: 上传图片
+ * @param {UploadRequestOptions} options
+ */
+const onUpload = (options: UploadRequestOptions) => {
+    return upload(options).then(res => {
+        fileList.value[fileList.value.length - 1].url = res.data.data.tmpPath;
+    });
 };
 
-const onClickPreviewFile = (file) => {
-    console.log(file);
-    preview.url = file.url!;
+// 预览图片
+const preview = reactive({ show: false, url: '' });
+
+/**
+ * @description: 图片预览
+ * @param {File} file
+ */
+const onClickPreviewFile = (file: File) => {
+    let url = file.url;
+    preview.url = url;
+    if (url.startsWith('/tmpImg')) {
+        preview.url = `http://localhost/${url}`;
+    }
     preview.show = true;
 };
 
-const onClickDelImg = (file) => {
-    console.log('删除', file.name);
-    console.log(uploadCom.value);
+/**
+ * @description: 删除图片
+ * @param {File} file
+ */
+const onClickDelImg = (file: File) => {
     uploadCom.value.handleRemove(file);
-    console.log(fileList.value);
-
-};
-
-const onUpload = (options) => {
-    return upload(options);
 };
 
 </script>
